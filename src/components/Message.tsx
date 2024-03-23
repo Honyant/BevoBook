@@ -14,15 +14,13 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
     return (
       <div
         ref={ref}
-        className={cn('flex items-end', {
-          'justify-end': isUserMessage,
-        })}
+        className='flex items-end'
       >
         <div
           className={cn(
             'relative flex h-6 w-6 aspect-square items-center justify-center',
             {
-              'order-2 bg-blue-600 rounded-sm': isUserMessage,
+              'order-1 bg-blue-600 rounded-sm': isUserMessage,
               'order-1 bg-zinc-800 roudned-sm': !isUserMessage,
             },
           )}
@@ -35,7 +33,7 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
         </div>
 
         <div
-          className={cn('flex flex-col space-y-2 text-base max-w-md mx-2 ', {
+          className={cn('flex flex-col space-y-2 text-base max-w-screen mx-2', {
             'order-1 items-end': isUserMessage,
             'order-2 items-start': !isUserMessage,
           })}
