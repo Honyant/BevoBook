@@ -6,19 +6,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function absoluteUrl(path: string) {
-  if (typeof window !== 'undefined') return path;
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}${path}`; //https://quill-pi-five.vercel.app/dashboard/billing
-  }
-  return `http://localhost:${process.env.PORT ?? 3000}${path}`;
-}
-
 export function constructMetadata({
-  title = "Quill - the SaaS for students",
-  description = "Quill is an open-source software to make chatting to your PDF files easy.",
-  image = "/thumbnail.png",
-  icons = "/favicon.ico",
+  title = "BevoBook - Your AI Course Assistant",
+  description = "BevoBook is an AI assistant that provides personalized course recommendations for UT Austin students, simplifying the registration process.",
+  image = "@/app/thumbnail.png",
+  icons = "@/app/favicon.ico",
   noIndex = false
 } : {
   title?: string
@@ -39,16 +31,8 @@ export function constructMetadata({
         }
       ]
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [image],
-      creator: "@EvanKuo10"
-    },
     icons,
-    metadataBase: new URL('https://quill-pi-five.vercel.app'),
-    // themeColor: "#FFF",
+    metadataBase: new URL('https://www.bevobook.tech/'),
     ...(noIndex && {
       robots: {
         index: false,

@@ -10,6 +10,9 @@ export default function Home() {
     const [messages, setMessages] = useState<MessageProps[]>([]);
 
     const addMessage = (newMessage: MessageProps) => {
+      if (newMessage.message === '') {
+        newMessage = {message: 'This was an empty message :(', isUserMessage: newMessage.isUserMessage}
+      }
         setMessages((prevMessages) => [...prevMessages, newMessage]);
     };
 
