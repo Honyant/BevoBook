@@ -34,6 +34,13 @@ class ChatbotInput(BaseModel):
 @app.post("/chatbot")
 async def chatbot(input_data: ChatbotInput):
     text = input_data.text
+    response = a.runpremium(text)
+    return {"response": response}
+
+
+@app.post("/chatbotnormal")
+async def chatbot(input_data: ChatbotInput):
+    text = input_data.text
     response = a.run(text)
     return {"response": response}
 

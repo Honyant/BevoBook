@@ -13,12 +13,13 @@ from helper import client
 from helper import *
 from fuzzywuzzy import fuzz
 from config import account_id, api_token, gpt_api_key
+from openai import OpenAI
+
 
 class CourseSelector:
     def __init__(self):
-        self.premium = True
-        
-
+        self.client = OpenAI(api_key=gpt_api_key)
+        self.premium = False
         self.crawled_courses = pd.read_csv("course_data_7.csv")
         self.abbreviations_df = pd.read_csv("abbreviations.csv")
 
@@ -93,9 +94,31 @@ class CourseSelector:
         set_api_key(gpt_api_key)
         response = get_response(prompt= prompt + ":\n\n" + data)
         return response.choices[0].message.content
+    
+    def runpremium(self,prompt):
+        similar_courses = find_most_similar_courses(prompt, list(self.abbreviations.keys()))
 
+        # get the abbreviations
+        course_fields = [self.abbreviations[course] for course in similar_courses]
+
+        # filter the dataset with the course fields
+        crawled_courses_filtered = self.crawled_courses[self.crawled_courses['Field'].isin(course_fields)]
+
+        #read text from abbreviations.csv below
+        response = self.client.chat.completions.create(
+                model="gpt-4-turbo-preview",
+                messages=[{
+                        "role":"system",
+                        "content":"You are a course advisor at the University of Texas at Austin. Answer the user's questions given this info: \n\n" + str(crawled_courses_filtered['Title'].drop_duplicates())
+                    },
+                    {
+                        "role":"user",
+                        "content":prompt
+                    }
+                ],
+                max_tokens=600
+            )
+        return response.choices[0].message.content
 if __name__ == "__main__":
     a = CourseSelector()
     data = a.run(sys.argv[1])
-    # print(a.ask_gpt(sys.argv[1], data))
-    print(data)
