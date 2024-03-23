@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import { format } from 'date-fns';
 import { forwardRef } from 'react';
 
-interface MessageProps {
+export interface MessageProps {
   message: string;
   isUserMessage: boolean;
 }
@@ -12,10 +12,7 @@ interface MessageProps {
 const Message = forwardRef<HTMLDivElement, MessageProps>(
   ({ message, isUserMessage }, ref) => {
     return (
-      <div
-        ref={ref}
-        className='flex items-end'
-      >
+      <div ref={ref} className="flex items-end">
         <div
           className={cn(
             'relative flex h-6 w-6 aspect-square items-center justify-center',
@@ -38,13 +35,28 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
             'order-2 items-start': !isUserMessage,
           })}
         >
-          <div
-            className={cn('px-4 py-2 rounded-lg inline-block text-wrap max-w-[100%]', {
-              'bg-blue-600 text-white': isUserMessage,
-              'bg-gray-200 text-gray-900': !isUserMessage,
-              'rounded-br-none': isUserMessage,
-              'rounded-bl-none': !isUserMessage,
-            })}
+          {typeof message === 'string' ? (
+            <ReactMarkdown
+              className={cn('prose', {
+                'text-zinc-50': isUserMessage,
+              })}
+            >
+              {message}
+            </ReactMarkdown>
+          ) : (
+            message
+          )}
+
+          {/* <div
+            className={cn(
+              'px-4 py-2 rounded-lg inline-block text-wrap max-w-[100%]',
+              {
+                'bg-blue-600 text-white': isUserMessage,
+                'bg-gray-200 text-gray-900': !isUserMessage,
+                'rounded-br-none': isUserMessage,
+                'rounded-bl-none': !isUserMessage,
+              },
+            )}
           >
             <ReactMarkdown
               className={cn('prose', {
@@ -53,7 +65,10 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
             >
               {message}
             </ReactMarkdown>
-          </div>
+          </div> */}
+
+
+
         </div>
       </div>
     );
@@ -61,5 +76,7 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
 );
 
 Message.displayName = 'Message';
+
+// export {MessageProps};
 
 export default Message;

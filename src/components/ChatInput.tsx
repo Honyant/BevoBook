@@ -1,16 +1,16 @@
 import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 // import { ChatContext } from './ChatContext';
+import { MessageProps } from '@/components/Message';
 
 interface ChatInputProps {
+  onNewMessage: (newMessage: MessageProps) => void;
   isDisabled?: boolean;
 }
 
-const ChatInput = ({ isDisabled }: ChatInputProps) => {
-  //   const { addMessage, handleInputChange, isLoading, message } =
-  //   const { addMessage, isLoading } = useContext(ChatContext);
+const ChatInput = ({ onNewMessage, isDisabled }: ChatInputProps) => {
   const [message, setMessage] = useState<string>('');
   const [response, setResponse] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -21,33 +21,72 @@ const ChatInput = ({ isDisabled }: ChatInputProps) => {
     setMessage(e.target.value);
   };
 
-  const handleInputSubmission = (message: string) => {
-    console.log('SUBMITTED MESSAGE: ' + message);
-    queryAPI();
-    setMessage('');
+  useEffect(() => {
+    if (!(response === '') && !isLoading) {
+      // Now, this will only run after `response` is set and `isLoading` is false
+      onNewMessage({ message: response, isUserMessage: false });
+      setResponse(''); // Reset response to null after processing
+      setMessage(''); // Clear message input
+    }
+  }, [response, isLoading, onNewMessage]);
+
+  const handleInputSubmission = async (message: string) => {
+    if (!isLoading) {
+      await queryAPI();
+    }
+
+    // console.log('SUBMITTED MESSAGE: ' + message);
+    // // queryAPI();
+    // setIsLoading(true);
+    // queryAPI();
+
+    // console.log('RESPONSE: ');
+    // console.log(response);
+    // if (response === '') {
+    //   setResponse('This was an empty string');
+    // }
+    // onNewMessage({ message: response, isUserMessage: false });
+    // setMessage('');
   };
 
-  function queryAPI() {
-    const fetchURL = `http://40.124.115.165/chatbot`;
-    // console.log(fetchURL)
-    const body = JSON.stringify({
-      text: message,
-    });
-    console.log(body);
-    fetch(fetchURL, {
+  const queryAPI = async () => {
+    setIsLoading(true);
+    const fetchURL = `https://server.theanthonywang.com/chatbot`;
+    const tempMessage = message;
+    setMessage('');
+    try{
+      const fetchResponse = await fetch(fetchURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', // Set the headers to inform the server about the type of the content
       },
-      body: body,
-    })
-      .then((response) => response.json()) // Convert the response to JSON
-      .then((data) => {
-        setResponse(data); // Store the response in the state variable
-        console.log(response);
-        console.log(data);
-      })
-      .catch((error) => console.error('Error:', error));
+      body: JSON.stringify({ text: tempMessage }),
+      });
+      const data = await fetchResponse.json();
+      setResponse(data.response);
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+    // const body = JSON.stringify({
+    //   text: message,
+    // });
+    // fetch(fetchURL, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json', // Set the headers to inform the server about the type of the content
+    //   },
+    //   body: body,
+    // })
+    //   .then((response) => response.json()) // Convert the response to JSON
+    //   .then((data) => {
+    //     setResponse(data); // Store the response in the state variable
+    //     setIsLoading(false);
+    //     console.log(response);
+    //     console.log(data);
+    //   })
+    //   .catch((error) => console.error('Error:', error));
   }
 
   return (

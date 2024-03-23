@@ -3,27 +3,21 @@ import Skeleton from 'react-loading-skeleton';
 import Message from './Message';
 import { ChatContext } from './ChatContext';
 import { useContext, useEffect, useRef } from 'react';
+import {MessageProps} from '@/components/Message'
 
-const Messages = () => {
-  let combinedMessages = [
-    {
-      message: 'hi',
-      isUserMessage: true,
-    },
-    {
-      message:
-        `ACC 310F FOUNDATIONS OF ACCOUNTING - VERDUZCO, DAVID B (Face-to-face)`,
-      isUserMessage: false,
-    },
-  ];
+interface MessagesProps{
+  messages: MessageProps[]
+}
+
+const Messages = ({messages}:MessagesProps) => {
   return (
     <div className="flex max-h-[calc(100vh-1.5rem-7rem)] border-zinc-200 flex-1 flex-col gap-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-      {combinedMessages && combinedMessages.length > 0 ? (
-        combinedMessages.map(({ message, isUserMessage }, i) => {
-          if (i === combinedMessages.length - 1) {
-            return <Message message={message} isUserMessage={isUserMessage} />;
+      {messages && messages.length > 0 ? (
+        messages.map(({ message, isUserMessage }, i) => {
+          if (i === messages.length - 1) {
+            return <Message key={i} message={message} isUserMessage={isUserMessage} />;
           } else {
-            return <Message message={message} isUserMessage={isUserMessage} />;
+            return <Message key={i} message={message} isUserMessage={isUserMessage} />;
           }
         })
       ) : (
