@@ -7,13 +7,19 @@ import { MessageProps } from '@/components/Message';
 
 interface ChatInputProps {
   onNewMessage: (newMessage: MessageProps) => void;
+  setResponseLoading: (isLoading: boolean) => void;
   isDisabled?: boolean;
 }
 
-const ChatInput = ({ onNewMessage, isDisabled }: ChatInputProps) => {
+const ChatInput = ({
+  onNewMessage,
+  setResponseLoading,
+  isDisabled,
+}: ChatInputProps) => {
   const [message, setMessage] = useState<string>('');
   const [response, setResponse] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  setResponseLoading(isLoading);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -23,6 +29,7 @@ const ChatInput = ({ onNewMessage, isDisabled }: ChatInputProps) => {
 
   useEffect(() => {
     if (!(response === '') && !isLoading) {
+      setResponseLoading(isLoading);
       // Now, this will only run after `response` is set and `isLoading` is false
       onNewMessage({ message: response, isUserMessage: false });
       setResponse(''); // Reset response to null after processing
@@ -33,6 +40,7 @@ const ChatInput = ({ onNewMessage, isDisabled }: ChatInputProps) => {
   const handleInputSubmission = async (message: string) => {
     onNewMessage({ message: message, isUserMessage: true });
     if (!isLoading) {
+      setResponseLoading(isLoading);
       await queryAPI();
     }
 
@@ -52,16 +60,17 @@ const ChatInput = ({ onNewMessage, isDisabled }: ChatInputProps) => {
 
   const queryAPI = async () => {
     setIsLoading(true);
+    setResponseLoading(isLoading);
     const fetchURL = `https://server.theanthonywang.com/chatbot`;
     const tempMessage = message;
     setMessage('');
-    try{
+    try {
       const fetchResponse = await fetch(fetchURL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json', // Set the headers to inform the server about the type of the content
-      },
-      body: JSON.stringify({ text: tempMessage }),
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Set the headers to inform the server about the type of the content
+        },
+        body: JSON.stringify({ text: tempMessage }),
       });
       const data = await fetchResponse.json();
       setResponse(data.response);
@@ -69,6 +78,7 @@ const ChatInput = ({ onNewMessage, isDisabled }: ChatInputProps) => {
       console.error('Error:', error);
     } finally {
       setIsLoading(false);
+      setResponseLoading(isLoading);
     }
     // const body = JSON.stringify({
     //   text: message,
@@ -88,7 +98,7 @@ const ChatInput = ({ onNewMessage, isDisabled }: ChatInputProps) => {
     //     console.log(data);
     //   })
     //   .catch((error) => console.error('Error:', error));
-  }
+  };
 
   return (
     <div className="absolute bottom-0 left-0 w-full">

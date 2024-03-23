@@ -3,13 +3,14 @@ import { Icons } from './Icons';
 import ReactMarkdown from 'react-markdown';
 import { format } from 'date-fns';
 import { forwardRef } from 'react';
+import { Loader2 } from 'lucide-react';
 
-export interface MessageProps {
+export interface LoadingMessageProps {
   message: string;
   isUserMessage: boolean;
 }
 
-const Message = forwardRef<HTMLDivElement, MessageProps>(
+const LoadingMessage = forwardRef<HTMLDivElement, LoadingMessageProps>(
   ({ message, isUserMessage }, ref) => {
     return (
       <div ref={ref} className="flex items-end">
@@ -42,7 +43,8 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
               'bg-orange-600 text-white': !isUserMessage,
             })}
           >
-            {typeof message === 'string' ? (
+            <Loader2 className="h-5 w-5 text-white animate-spin" />
+            {/* {typeof message === 'string' ? (
               <ReactMarkdown
                 className={'prose'}
               >
@@ -50,7 +52,7 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
               </ReactMarkdown>
             ) : (
               message
-            )}
+            )} */}
           </div>
         </div>
       </div>
@@ -58,8 +60,8 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
   },
 );
 
-Message.displayName = 'Message';
+LoadingMessage.displayName = 'LoadingMessage';
 
 // export {MessageProps};
 
-export default Message;
+export default LoadingMessage;
