@@ -1,0 +1,221 @@
+Field,Abbreviation
+ACC,ACC - Accounting
+ADV,ADV - Advertising
+ASE,ASE - Aerospace Engineering
+AFR,AFR - African/African Diaspora Studies
+AFS,AFS - Air Force Science
+ASL,ASL - American Sign Language
+AMS,AMS - American Studies
+AHC,AHC - Ancient History/Classical Civ
+ANT,ANT - Anthropology
+ARA,ARA - Arabic
+ARE,ARE - Architectural Engineering
+ARI,ARI - Architectural Interior Design
+ARC,ARC - Architecture
+AED,AED - Art Education
+ARH,ARH - Art History
+ART,ART - Art Studio
+AET,AET - Arts/Entertainment Technology
+AAS,AAS - Asian American Studies
+ANS,ANS - Asian Studies
+AST,AST - Astronomy
+BSN,BSN - Bassoon
+BCH,BCH - Biochemistry
+BIO,BIO - Biology
+BME,BME - Biomedical Engineering
+BDP,BDP - Bridging Disciplines
+BAH,BAH - Business Admin Honors
+B A,B A - Business Administration
+BAX,BAX - Business Analytics
+BGS,BGS - Business/Government/Society
+CHE,CHE - Chemical Engineering
+CH,CH - Chemistry
+CHI,CHI - Chinese
+C E,C E - Civil Engineering
+CLA,CLA - Clarinet
+C C,` C - Classical Civilization
+CGS,CGS - Cognitive Science
+COM,COM - Communication
+CLD,CLD - Communication and Leadership
+CMS,CMS - Communication Studies
+CRP,CRP - Community/Regional Planning
+C L,C L - Comparative Literature
+COE,COE - Computational Engineering
+CSE,CSE - Computational Science/Engineering
+C S,C S - Computer Science
+CON,CON - Conducting
+CTI,CTI - Core Texts and Ideas
+CRW,CRW - Creative Writing
+CDI,CDI - Critical Disability Studies
+EDC,EDC - Curriculum and Instruction
+CZ,CZ - Czech
+DAN,DAN - Danish
+DSC,DSC - Data Science
+D S,D S - Decision Science
+DES,DES - Design
+DEV,DEV - Developmental Studies
+D B,D B - Double Bass
+DRS,DRS - Drum Set
+DCH,DCH - Dutch
+ECO,ECO - Economics
+EDU,EDU - Education
+ELP,ELP - Educational Leadership/Policy
+EDP,EDP - Educational Psychology
+ECE,ECE - Electrical/Computer Engineering
+EER,EER - Energy and Earth Resources
+ENM,ENM - Engineering Management
+E M,E M - Engineering Mechanics
+E S,E S - Engineering Studies
+E,E - English
+ESL,ESL - English as a Second Language
+ENS,ENS - Ensemble
+EVE,EVE - Environmental Engineering
+EVS,EVS - Environmental Science
+EUP,EUP - Euphonium
+EUS,EUS - European Studies
+FIN,FIN - Finance
+F A,F A - Fine Arts
+FLU,FLU - Flute
+FR,FR - French
+F C,F C - French Civilization
+F H,F H - French Horn
+G E,G E - General Engineering
+GRG,GRG - Geography
+GEO,GEO - Geological Sciences
+GER,GER - German
+GSD,GSD - German/Scandinavian/Dutch
+GOV,GOV - Government
+GRS,GRS - Graduate School
+GK,GK - Greek
+GUI,GUI - Guitar
+HAR,HAR - Harp
+H S,H S - Health and Society
+HCT,HCT - Health Care Transformation
+HED,HED - Health Education
+HEB,HEB - Hebrew
+HIN,HIN - Hindi
+HIS,HIS - History
+HDF,HDF - Human Development/Family Sciences
+HDO,HDO - Human Dimensions of Orgs
+H E,H E - Human Ecology
+HMN,HMN - Humanities
+HHM,HHM - Humanities/Health/Medicine
+ILA,ILA - Iberian/Latin American Langs
+I,I - Informatics
+ISP,ISP - Information Security/Privacy
+INF,INF - Information Studies
+ITD,ITD - Integrated Design
+INB,INB - Integrative Biology
+I B,I B - International Business
+IRG,IRG - Intl Relations/Global Studies
+ITL,ITL - Italian
+ITC,ITC - Italian Civilization
+JPN,JPN - Japanese
+J S,J S - Jewish Studies
+J,J - Journalism
+KIN,KIN - Kinesiology
+KOR,KOR - Korean
+LAR,LAR - Landscape Architecture
+LTC,LTC - Language Teaching/Coordination
+LAT,LAT - Latin
+LAS,LAS - Latin American Studies
+LAW,LAW - Law
+LEB,LEB - Legal Environment of Business
+L A,L A - Liberal Arts
+LAH,LAH - Liberal Arts Honors
+LIN,LIN - Linguistics
+MAL,MAL - Malayalam
+MAN,MAN - Management
+MIS,MIS - Management Information Systems
+MFG,MFG - Manufacturing Systems Eng
+MNS,MNS - Marine Science
+MKT,MKT - Marketing
+MSE,MSE - Materials Science/Engineering
+M,M - Mathematics
+M E,M E - Mechanical Engineering
+MLS,MLS - Medical Laboratory Science
+MAS,MAS - Mexican American Studies
+MEL,MEL - Middle Eastern Langs/Cultures
+MES,MES - Middle Eastern Studies
+M S,M S - Military Science
+MOL,MOL - Molecular Biology
+MBS,MBS - Molecular Biosciences
+MUS,MUS - Music
+NSC,NSC - Natural Sciences
+N S,N S - Naval Science
+NEU,NEU - Neuroscience
+NOR,NOR - Norwegian
+N,N - Nursing
+NTR,NTR - Nutrition
+OBO,OBO - Oboe
+OPR,OPR - Opera
+O M,O M - Operations Management
+ORI,ORI - Operations Rsrch/Industrial Engr
+ORG,ORG - Organ
+PER,PER - Percussion
+PRS,PRS - Persian
+PGE,PGE - Petroleum/Geosystems Engineering
+PGS,PGS - Pharmacy Graduate Studies
+PHM,PHM - Pharmacy PharmD
+PHL,PHL - Philosophy
+PPE,PPE - Philosophy Politics and Econ
+PED,PED - Physical Education
+P S,P S - Physical Science
+PHY,PHY - Physics
+PIA,PIA - Piano
+POL,POL - Polish
+POR,POR - Portuguese
+PRC,PRC - Portuguese Civilization
+PSY,PSY - Psychology
+P A,P A - Public Affairs
+PBH,PBH - Public Health
+P L,P L - Public Leadership
+P R,P R - Public Relations
+RIM,RIM - Race/Indigeneity/Migration
+RTF,RTF - Radio-Television-Film
+R E,R E - Real Estate
+R S,R S - Religious Studies
+RHE,RHE - Rhetoric and Writing
+R M,R M - Risk Management
+RBT,RBT - Robotics
+RUS,RUS - Russian
+REE,REE - Russian/East European/Eurasian
+SAN,SAN - Sanskrit
+SAX,SAX - Saxophone
+STM,STM - Sci/Tech/Engr/Math Studies
+STC,STC - Science/Technology Commerce
+S C,S C - Serbian/Croatian
+SEL,SEL - Slavic and Eurasian Languages
+S S,S S - Social Science
+S W,S W - Social Work
+SOC,SOC - Sociology
+SPN,SPN - Spanish
+SPC,SPC - Spanish Civilization
+SED,SED - Special Education
+SLH,SLH - Speech/Language/Hearing Sciences
+STA,STA - Statistics
+SDS,SDS - Statistics and Data Sciences
+SUS,SUS - Sustainability Studies
+SWE,SWE - Swedish
+TAM,TAM - Tamil
+TXA,TXA - Textiles and Apparel
+T D,T D - Theatre and Dance
+TRO,TRO - Trombone
+TRU,TRU - Trumpet
+TBA,TBA - Tuba
+TUR,TUR - Turkish
+T C,T C - Tutorial Course
+UKR,UKR - Ukrainian
+UGS,UGS - Undergraduate Studies
+U D,U D - Urban Design
+URB,URB - Urban Studies
+URD,URD - Urdu
+UTL,UTL - UTeach-Liberal Arts
+UTS,UTS - UTeach-Natural Sciences
+VIA,VIA - Viola
+VIO,VIO - Violin
+V C,V C - Violoncello
+VOI,VOI - Voice
+WGS,WGS - Women's and Gender Studies
+WRT,WRT - Writing
+YID,YID - Yiddish
