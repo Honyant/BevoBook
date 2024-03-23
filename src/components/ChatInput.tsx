@@ -1,18 +1,54 @@
 import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { useContext, useRef } from 'react';
-import { ChatContext } from './ChatContext';
+import { useContext, useRef, useState } from 'react';
+// import { ChatContext } from './ChatContext';
 
 interface ChatInputProps {
   isDisabled?: boolean;
 }
 
 const ChatInput = ({ isDisabled }: ChatInputProps) => {
-  const { addMessage, handleInputChange, isLoading, message } =
-    useContext(ChatContext);
+  //   const { addMessage, handleInputChange, isLoading, message } =
+  //   const { addMessage, isLoading } = useContext(ChatContext);
+  const [message, setMessage] = useState<string>('');
+  const [response, setResponse] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(e.target.value);
+  };
+
+  const handleInputSubmission = (message: string) => {
+    console.log('SUBMITTED MESSAGE: ' + message);
+    queryAPI();
+    setMessage('');
+  };
+
+  function queryAPI() {
+    const fetchURL = `http://40.124.115.165/chatbot`;
+    // console.log(fetchURL)
+    const body = JSON.stringify({
+      text: message,
+    });
+    console.log(body);
+    fetch(fetchURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // Set the headers to inform the server about the type of the content
+      },
+      body: body,
+    })
+      .then((response) => response.json()) // Convert the response to JSON
+      .then((data) => {
+        setResponse(data); // Store the response in the state variable
+        console.log(response);
+        console.log(data);
+      })
+      .catch((error) => console.error('Error:', error));
+  }
 
   return (
     <div className="absolute bottom-0 left-0 w-full">
@@ -26,12 +62,12 @@ const ChatInput = ({ isDisabled }: ChatInputProps) => {
                 ref={textareaRef}
                 autoFocus
                 onChange={handleInputChange}
-                value={message}
+                value={message || ''}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
 
-                    addMessage();
+                    handleInputSubmission(message);
 
                     textareaRef.current?.focus();
                   }
@@ -45,7 +81,7 @@ const ChatInput = ({ isDisabled }: ChatInputProps) => {
                 className="absolute bottom-1.5 right-[8px]"
                 aria-label="send message"
                 onClick={() => {
-                  addMessage();
+                  handleInputSubmission(message);
 
                   textareaRef.current?.focus();
                 }}
