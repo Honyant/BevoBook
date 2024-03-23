@@ -1,6 +1,10 @@
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import os
+from openai import OpenAI
+
+client = None
 
 def remove_extra_spaces(column):
     # Convert the column to a list of strings
@@ -77,5 +81,43 @@ def find_most_similar_courses(user_prompt, course_titles):
     most_similar_courses = [course_titles[index-1] for index in reversed(similar_indices[:-1])]
 
     return most_similar_courses[:1]
+
+def set_api_key(key):
+    global client
+    client = OpenAI(api_key=key)
+
+# code pattern to get response from GPT
+def get_response(prompt, engine="gpt-4-turbo-preview"):
+    response = client.chat.completions.create(
+        model=engine,
+        messages=[{
+                "role":"system",
+                "content":"You are a course advisor at the University of Texas at Austin. Respond to the user's query: \n"
+            },
+            {
+                "role":"user",
+                "content":prompt
+            }
+        ],
+        max_tokens=600
+    )
+    return response
+
+def get_response2(prompt1, prompt2, engine="gpt-4-turbo-preview"):
+    response = client.chat.completions.create(
+        model=engine,
+        messages=[{
+                "role":"system",
+                "content":prompt1
+            },
+            {
+                "role":"user",
+                "content":prompt2
+            }
+        ],
+        max_tokens=600
+    )
+    return response
+
 
 
