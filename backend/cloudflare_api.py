@@ -77,4 +77,4 @@ def run(prompt):
     return reformat_data(matched_courses_df) + "\n"
 
 if __name__ == "__main__":
-    print(run(sys.argv[1]))
+    print(run(sys.argv[1])[:500])
