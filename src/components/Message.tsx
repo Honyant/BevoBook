@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import { forwardRef } from 'react';
 
 interface MessageProps {
-  message: String;
+  message: string;
   isUserMessage: boolean;
 }
 
@@ -35,30 +35,26 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
         </div>
 
         <div
-          className={cn('flex flex-col space-y-2 text-base max-w-md mx-2', {
+          className={cn('flex flex-col space-y-2 text-base max-w-md mx-2 ', {
             'order-1 items-end': isUserMessage,
             'order-2 items-start': !isUserMessage,
           })}
         >
           <div
-            className={cn('px-4 py-2 rounded-lg inline-block', {
+            className={cn('px-4 py-2 rounded-lg inline-block text-wrap max-w-[100%]', {
               'bg-blue-600 text-white': isUserMessage,
               'bg-gray-200 text-gray-900': !isUserMessage,
               'rounded-br-none': isUserMessage,
               'rounded-bl-none': !isUserMessage,
             })}
           >
-            {typeof message === 'string' ? (
-              <ReactMarkdown
-                className={cn('prose whitespace-pre-wrap', {
-                  'text-zinc-50': isUserMessage,
-                })}
-              >
-                {message}
-              </ReactMarkdown>
-            ) : (
-              <div className="whitespace-pre-wrap">{message}</div>
-            )}
+            <ReactMarkdown
+              className={cn('prose', {
+                'text-zinc-50': isUserMessage,
+              })}
+            >
+              {message}
+            </ReactMarkdown>
           </div>
         </div>
       </div>
