@@ -5,6 +5,10 @@ import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import Messages from '@/components/Messages';
 import {MessageProps} from '@/components/Message'
 
+import Image from 'next/image';
+import thumbnail from './/thumbnail.png';
+
+
 export default function Home() {
 
     const [messages, setMessages] = useState<MessageProps[]>([]);
@@ -23,6 +27,9 @@ export default function Home() {
 
       <div className="flex-1 justify-between flex flex-col h-[calc(100vh-1.5rem)]">
         <div className="relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2">
+        <div className="flex justify-center">
+            <Image src={thumbnail} alt="Thumbnail" width={200} height={200} /> {/* adjust width and height as needed */}
+          </div>
           <div className="flex-1 justify-between flex flex-co mb-28">
             <Messages messages={messages} reponseLoading={responseLoading}/>
           </div>
