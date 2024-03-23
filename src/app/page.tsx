@@ -3,23 +3,24 @@ import React, { useState } from 'react';
 import ChatInput from '@/components/ChatInput';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import Messages from '@/components/Messages';
-import {MessageProps} from '@/components/Message'
+import { MessageProps } from '@/components/Message';
 
 import Image from 'next/image';
 import thumbnail from './/thumbnail.png';
 
-
 export default function Home() {
+  const [messages, setMessages] = useState<MessageProps[]>([]);
+  const [responseLoading, setResponseLoading] = useState<boolean>(false);
 
-    const [messages, setMessages] = useState<MessageProps[]>([]);
-    const [responseLoading, setResponseLoading] = useState<boolean>(false);
-
-    const addMessage = (newMessage: MessageProps) => {
-      if (newMessage.message === '') {
-        newMessage = {message: 'This was an empty message :(', isUserMessage: newMessage.isUserMessage}
-      }
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
-    };
+  const addMessage = (newMessage: MessageProps) => {
+    if (newMessage.message === '') {
+      newMessage = {
+        message: 'This was an empty message :(',
+        isUserMessage: newMessage.isUserMessage,
+      };
+    }
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+  };
 
   return (
     <MaxWidthWrapper>
@@ -27,14 +28,17 @@ export default function Home() {
 
       <div className="flex-1 justify-between flex flex-col h-[calc(100vh-1.5rem)]">
         <div className="relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2">
-        <div className="flex justify-center">
-            <Image src={thumbnail} alt="Thumbnail" width={200} height={200} /> {/* adjust width and height as needed */}
+          <div className="flex justify-center">
+            <Image src={thumbnail} alt="Thumbnail" width={150} height={150} />
           </div>
-          <div className="flex-1 justify-between flex flex-co mb-28">
-            <Messages messages={messages} reponseLoading={responseLoading}/>
+          <div className="flex-1 justify-between flex flex-co mb-28 h-[calc(100px)]">
+              <Messages messages={messages} reponseLoading={responseLoading} />
           </div>
 
-          <ChatInput onNewMessage={addMessage} setResponseLoading={setResponseLoading}/>
+          <ChatInput
+            onNewMessage={addMessage}
+            setResponseLoading={setResponseLoading}
+          />
         </div>
       </div>
     </MaxWidthWrapper>
