@@ -31,6 +31,7 @@ const ChatInput = ({ onNewMessage, isDisabled }: ChatInputProps) => {
   }, [response, isLoading, onNewMessage]);
 
   const handleInputSubmission = async (message: string) => {
+    onNewMessage({ message: message, isUserMessage: true });
     if (!isLoading) {
       await queryAPI();
     }
