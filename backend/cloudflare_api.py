@@ -9,11 +9,15 @@ Original file is located at
 import sys
 import requests
 import pandas as pd
+from helper import client
 from helper import *
 from fuzzywuzzy import fuzz
-from config import account_id, api_token
+from config import account_id, api_token, gpt_api_key
+
 class CourseSelector:
     def __init__(self):
+        self.premium = True
+        
 
         self.crawled_courses = pd.read_csv("course_data_7.csv")
         self.abbreviations_df = pd.read_csv("abbreviations.csv")
@@ -43,42 +47,55 @@ class CourseSelector:
 
         # make the request
         inference = None
-        while (not inference or len(inference) == 0):
-            response = requests.post(
-                f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{model}",
-                headers={"Authorization": f"Bearer {api_token}"},
-                json={"messages": [
-                    {"role": "system", "content": "You are a course advisor at the University of Texas at Austin. Answer questions with a list of only course names in this list: \n\n" + str(crawled_courses_filtered['Title'].drop_duplicates())},
-                    {"role": "user", "content":  prompt}
-                ]}
-            )
+        if self.premium:
+            set_api_key(gpt_api_key)
+            response = get_response2("You are a course advisor at the University of Texas at Austin. Answer questions with a list of only course names in this list, using dash as bullet points and seperated by newlines: \n\n" + str(crawled_courses_filtered['Title'].drop_duplicates()),prompt)
+            inference = response.choices[0].message.content
+        else:
+            while (not inference or len(inference) == 0):
+                response = requests.post(
+                    f"https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{model}",
+                    headers={"Authorization": f"Bearer {api_token}"},
+                    json={"messages": [
+                        {"role": "system", "content": "You are a course advisor at the University of Texas at Austin. Answer questions with a list of only course names in this list: \n\n" + str(crawled_courses_filtered['Title'].drop_duplicates())},
+                        {"role": "user", "content":  prompt}
+                    ]}
+                )
 
-            inference = response.json()
+                inference = response.json()
+            inference = inference["result"]["response"]
             
         # process the output
         queries = []
-        for message in inference["result"]["response"].split("\n"):
-            if (message and "." in message):
-                queries.append(message.split(".")[1].strip().upper())
+        for message in inference.split("\n"):
+            if (not self.premium):
+                if (message and "." in message):
+                    queries.append(message.split(".")[1].strip().upper())
+            else:
+                if (message and "-" in message):
+                    queries.append(message.split("-")[1].strip().upper())
 
         def is_match(title):
-            return any(fuzz.ratio(title.upper(), query) > 80 for query in queries)
+            return any(fuzz.ratio(title.upper(), query) > 90 for query in queries)
+        
+        if (not self.premium):
+            matches = self.crawled_courses['Title'].apply(is_match)
 
-        # create dataframe by filtering the crawled courses
-        matched_courses = []
-        for i, course in self.crawled_courses.iterrows():
-            if any(fuzz.ratio(course['Title'].upper(), query) > 80 for query in queries):
-                matched_courses.append(course)
-
-
-        matches = self.crawled_courses['Title'].apply(is_match)
-
-        # Use boolean indexing to filter the DataFrame
-        matched_courses_df = self.crawled_courses[matches]
-
+            # Use boolean indexing to filter the DataFrame
+            matched_courses_df = self.crawled_courses[matches][:10]
+        else:
+            matched_courses_df = self.crawled_courses[self.crawled_courses['Title'].isin(queries)][:10]
+        
         # # write the dataframe in bullet point format to a file 
         return reformat_data(matched_courses_df) + "\n"
 
+    def ask_gpt(self, prompt, data):
+        set_api_key(gpt_api_key)
+        response = get_response(prompt= prompt + ":\n\n" + data)
+        return response.choices[0].message.content
+
 if __name__ == "__main__":
     a = CourseSelector()
-    print(a.run(sys.argv[1])[:500])
+    data = a.run(sys.argv[1])
+    # print(a.ask_gpt(sys.argv[1], data))
+    print(data)
