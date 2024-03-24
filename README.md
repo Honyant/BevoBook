@@ -32,7 +32,7 @@ With these components, BevoBook comes together into a sleek, full stack web-app 
 
 
 ## Accomplishments that we're proud of
-- User base?
+- 50+ users on launch
 
 ## What's next for BevoBook
 - **Real-Time Registrar Data**: because of authentication requirements via UT EID/utexas accounts, we had to scrape data once on our side for it to be used in the app. Looking forward, we hope to integrate BevoBook with UT authentication for live and continuous updates to reflect changes on the course registrar.
